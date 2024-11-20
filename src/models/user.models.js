@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema
     {
         type:String,
     },
+    image:
+    {
+        type:String,
+    },
     refreshToken:
     {
         type:String,
@@ -44,7 +48,8 @@ userSchema.methods.generateAccessToken =  function()
     (
         {
             _id: this._id,
-            email: this.email
+            email: this.email,
+            
         },
         process.env.ACCESS_TOKEN_SECRET,
         {

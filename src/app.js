@@ -13,13 +13,15 @@ app.use(cookieParser());
 
 // import routes
 
-import userRouter from "./routes/users.routes.js"
-import scanRouter from "./routes/scan.routes.js"
+import userRouter from "./routes/users.routes.js";
+import saveRouter from "./routes/saved.routes.js"
+
 
 // routes declaration
 
-app.use("/users",userRouter)
-app.use("/scanner",scanRouter)
+app.use("/users",userRouter);
+app.use("/save",saveRouter);
+
 
 export {app} 
 

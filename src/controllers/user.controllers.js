@@ -6,6 +6,7 @@ import {ApiResponse} from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import { pdf } from "../utils/PDF.js";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 const generateAccessTokenAndRefreshToken= async(userID)=>
@@ -31,7 +32,7 @@ const registerUser = asyncHandler
     async(req,res) => 
     {
       
-         const {email,password} = req.body;
+         const {email,password,image} = req.body;
          
          
          const existedUser = await User.findOne({email});
@@ -45,7 +46,8 @@ const registerUser = asyncHandler
          (
             {
                 email,
-                password
+                password,
+                image
             }
          )
 
@@ -78,11 +80,12 @@ const authRedirect = asyncHandler
       {
          throw new ApiError(404,"user does not exist")
       }
+      const createdUser =await User.findById(userId).select("-password -refreshToken -email ");
       
       return res
       .status(200)
       .json(
-         new ApiResponse(200,"user exist",{userId})
+         new ApiResponse(200,"user exist",{createdUser})
       )
    }
 
@@ -119,7 +122,7 @@ const loginUser = asyncHandler
       
       const { email , password } = req.body;
       
-
+    
 
       
 
